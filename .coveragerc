@@ -1,0 +1,19 @@
+[run]
+branch = True
+source =
+    agent
+    browser
+    storage
+    ui
+    demo_site
+omit =
+    */__init__.py
+
+[report]
+show_missing = True
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
+
+[html]
+directory = htmlcov

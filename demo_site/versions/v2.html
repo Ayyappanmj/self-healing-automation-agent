@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="ui-version" content="v2">
+<title>Demo Login v2</title><link rel="stylesheet" href="/style.css"></head>
+<body><main class="card">
+<h1>Sign in</h1>
+<form>
+  <label>Username</label>
+  <input data-testid="username-input" type="text" placeholder="Username">
+  <label>Password</label>
+  <input data-testid="password-input" type="password" placeholder="Password">
+  <label class="check"><input data-testid="remember-checkbox" type="checkbox"> Remember me</label>
+  <button data-testid="login-button" type="submit">Login</button>
+  <a data-testid="forgot-link" href="#">Forgot password?</a>
+</form>
+<p data-testid="welcome-message" class="status" hidden></p>
+</main><script src="/app.js"></script></body></html>

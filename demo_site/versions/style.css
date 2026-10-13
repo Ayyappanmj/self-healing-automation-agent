@@ -1,0 +1,10 @@
+body { font-family: system-ui, sans-serif; background: #f4f5f7; display: grid; place-items: center; min-height: 100vh; margin: 0; }
+.card { background: #fff; padding: 2rem; border-radius: 12px; width: 320px; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+h1 { margin-top: 0; font-size: 1.4rem; }
+label { display: block; margin: .75rem 0 .25rem; font-size: .85rem; color: #444; }
+input[type=text], input[type=password], input[type=email] { width: 100%; padding: .5rem; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; }
+.check { display: flex; gap: .4rem; align-items: center; }
+button { width: 100%; margin-top: 1rem; padding: .6rem; border: 0; border-radius: 6px; background: #2563eb; color: #fff; font-size: 1rem; cursor: pointer; }
+a { display: block; margin-top: .75rem; font-size: .85rem; }
+.status { margin-top: 1rem; padding: .5rem; border-radius: 6px; background: #ecfdf5; color: #065f46; }
+.status.error { background: #fef2f2; color: #991b1b; }

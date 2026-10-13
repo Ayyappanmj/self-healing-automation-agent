@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="ui-version" content="v3">
+<title>Demo Login v3</title><link rel="stylesheet" href="/style.css"></head>
+<body><main class="card">
+<h1>Welcome back</h1>
+<form>
+  <div class="field">
+    <label>Email address</label>
+    <input name="email" type="email" placeholder="you@example.com">
+  </div>
+  <div class="field">
+    <label>Passphrase</label>
+    <input name="pass" type="password" placeholder="Enter passphrase">
+  </div>
+  <label class="check"><input name="keep" type="checkbox"> Keep me signed in</label>
+  <button class="btn btn-primary" aria-label="Sign in" type="submit">Sign in</button>
+  <a class="link-muted" href="#">Reset password</a>
+</form>
+<p id="flash" class="status" hidden></p>
+</main><script src="/app.js"></script></body></html>
