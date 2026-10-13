@@ -256,4 +256,4 @@ The app is meant to run locally, where you can watch the browser. Hosted platfor
 
 ## License
 
-MIT. See [LICENSE](LICENSE). Replace `[Your Name]` in the license with your name before publishing.
+MIT. See [LICENSE](LICENSE). Ayyappan M
