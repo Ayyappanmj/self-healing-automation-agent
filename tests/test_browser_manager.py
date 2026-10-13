@@ -59,8 +59,22 @@ def test_start_launches_with_requested_options(pw):
     m = BrowserManager(headless=True, slow_mo=300)
     page = m.start()
     browser = pw.instances[0].browsers[0]
-    assert page is m.page and browser.launch_args == {"headless": True, "slow_mo": 300}
+    assert page is m.page and browser.launch_args == {
+        "headless": True,
+        "slow_mo": 300,
+        "args": [
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-gpu",
+        ],
+    }
     assert browser.viewport == {"width": 1100, "height": 750}
+
+
+def test_start_does_not_add_headless_flags_in_headed_mode(pw):
+    BrowserManager(headless=False).start()
+    assert pw.instances[0].browsers[0].launch_args == {"headless": False, "slow_mo": 0}
 
 
 def test_page_before_start_raises_clear_error():
