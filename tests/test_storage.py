@@ -163,17 +163,24 @@ def test_jsonl_log_append_read_and_tolerates_partial_line(tmp_path):
 
 def test_setup_logging_writes_file_and_is_idempotent(tmp_path):
     import logging
-    logger = setup_logging(tmp_path / "logs")
-    n = len(logger.handlers)
-    assert setup_logging(tmp_path / "other") is logger and len(logger.handlers) == n
-    logger.info(format_record_line(REC))
-    for h in logger.handlers:
-        h.flush()
-    text = read_tail(tmp_path / "logs" / "agent.log")
-    assert "HEALED" in text and "button#login" in text and "confidence=0.97" in text
-    for h in list(logger.handlers):                                  # release the file for Windows/tmp cleanup
-        h.close()
-        logger.removeHandler(h)
+    logger = logging.getLogger("healing_agent")
+    for handler in list(logger.handlers):
+        handler.close()
+        logger.removeHandler(handler)
+
+    try:
+        logger = setup_logging(tmp_path / "logs")
+        n = len(logger.handlers)
+        assert setup_logging(tmp_path / "other") is logger and len(logger.handlers) == n
+        logger.info(format_record_line(REC))
+        for handler in logger.handlers:
+            handler.flush()
+        text = read_tail(tmp_path / "logs" / "agent.log")
+        assert "HEALED" in text and "button#login" in text and "confidence=0.97" in text
+    finally:
+        for handler in list(logger.handlers):
+            handler.close()
+            logger.removeHandler(handler)
 
 
 def test_read_tail_limits_lines_and_handles_missing(tmp_path):
