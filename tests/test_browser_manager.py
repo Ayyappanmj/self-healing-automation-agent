@@ -40,7 +40,7 @@ class FakePW:
     def __init__(self): self.stopped, self.browsers = False, []; FakePW.instances.append(self)
     def start(self): return self
     @property
-    def chromium(self): return self
+    def firefox(self): return self
     def launch(self, **kw):
         b = FakeBrowser(**kw)
         self.browsers.append(b)
@@ -59,16 +59,7 @@ def test_start_launches_with_requested_options(pw):
     m = BrowserManager(headless=True, slow_mo=300)
     page = m.start()
     browser = pw.instances[0].browsers[0]
-    assert page is m.page and browser.launch_args == {
-        "headless": True,
-        "slow_mo": 300,
-        "args": [
-            "--no-sandbox",
-            "--disable-setuid-sandbox",
-            "--disable-dev-shm-usage",
-            "--disable-gpu",
-        ],
-    }
+    assert page is m.page and browser.launch_args == {"headless": True, "slow_mo": 300}
     assert browser.viewport == {"width": 1100, "height": 750}
 
 

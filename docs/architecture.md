@@ -30,7 +30,7 @@ flowchart TD
 
 | Module | Responsibility |
 |---|---|
-| `browser/manager.py` | Starts and stops Chromium, restarts it after a crash and returns to the last page |
+| `browser/manager.py` | Starts and stops Firefox, restarts it after a crash and returns to the last page |
 | `browser/actions.py` | Runs one action (click, fill, get text, assert visible); a broken locator returns a failed result instead of raising |
 | `agent/failure_detector.py` | Decides why an action failed and whether it is healable; captures URL, title, screenshot, timestamp |
 | `agent/dom_inspector.py` | Parses the live page into structured elements (attributes, labels, nearby text, hierarchy, visibility) |

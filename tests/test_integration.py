@@ -1,4 +1,4 @@
-"""End-to-end tests in a real Chromium browser (skipped automatically if Chromium is missing)."""
+"""End-to-end tests in a real Firefox browser (skipped automatically if Firefox is missing)."""
 import pytest
 
 from agent.config import Settings
@@ -14,7 +14,7 @@ STEPS = [
 
 @pytest.fixture(scope="module")
 def live(browser_manager, demo_base_url):
-    controller = AutomationController(browser_manager, Settings(action_timeout_ms=1500), screenshot_dir=None)
+    controller = AutomationController(browser_manager, Settings(action_timeout_ms=3000), screenshot_dir=None)
     return controller, demo_base_url
 
 
@@ -24,7 +24,8 @@ def case(base, version, steps=STEPS):
 
 def test_baseline_passes_on_v1(live):
     controller, base = live
-    assert controller.run_test(case(base, "v1")).status == "passed"
+    result = controller.run_test(case(base, "v1"))
+    assert result.status == "passed", [(s.name, s.status, s.error) for s in result.steps]
     assert controller.baselines
 
 

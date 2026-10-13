@@ -19,15 +19,7 @@ class BrowserManager:
     # lifecycle -----------------------------------------------------------
     def start(self) -> Page:
         self._pw = sync_playwright().start()
-        launch_options = {"headless": self.headless, "slow_mo": self.slow_mo}
-        if self.headless:
-            launch_options["args"] = [
-                "--no-sandbox",
-                "--disable-setuid-sandbox",
-                "--disable-dev-shm-usage",
-                "--disable-gpu",
-            ]
-        self._browser = self._pw.chromium.launch(**launch_options)
+        self._browser = self._pw.firefox.launch(headless=self.headless, slow_mo=self.slow_mo)
         self._context = self._browser.new_context(viewport={"width": 1100, "height": 750})
         self._page = self._context.new_page()
         return self._page

@@ -159,12 +159,12 @@ def run_benchmark(settings: Settings, reps: int, use_llm: bool, versions=VERSION
                                        learn_baselines=False, screenshot_dir=None)
             for v in versions:
                 flows.append(run_flow(off, bm, base, v, 1, "no_baseline", "healing_off", [OLD[k] for k in FLOW_KEYS]))
-            chromium = bm._browser.version if bm._browser else ""
+            firefox = bm._browser.version if bm._browser else ""
     finally:
         server.shutdown()
     meta = {
         "date_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"), "reps": reps, "versions": list(versions),
-        "python": platform.python_version(), "platform": platform.platform(), "chromium": chromium,
+        "python": platform.python_version(), "platform": platform.platform(), "firefox": firefox,
         "playwright": importlib.metadata.version("playwright"), "llm": "enabled" if use_llm and settings.llm_enabled else "none",
         "confidence_threshold": settings.confidence_threshold, "action_timeout_ms": settings.action_timeout_ms,
         "action_retries": settings.action_retries, "max_healing_attempts": settings.max_healing_attempts,
@@ -237,7 +237,7 @@ def _ms(s: dict | None, key: str = "mean") -> str:
 def render_markdown(result: dict) -> str:
     m, s = result["meta"], result["summary"]
     lines = ["# Benchmark results", "",
-             f"Run on {m['date_utc']} UTC | Python {m['python']} | Chromium {m['chromium']} | Playwright {m['playwright']} | "
+             f"Run on {m['date_utc']} UTC | Python {m['python']} | Firefox {m['firefox']} | Playwright {m['playwright']} | "
              f"{m['platform']}", "",
              f"Setup: {m['positive_cases']} broken-locator cases and {m['negative_cases']} must-refuse cases on demo UI "
              f"versions {', '.join(m['versions'])}; {m['reps']} repetition(s); LLM: {m['llm']}; confidence threshold "

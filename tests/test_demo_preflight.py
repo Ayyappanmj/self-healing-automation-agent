@@ -22,12 +22,12 @@ def test_missing_packages_are_listed_with_the_fix():
     assert pf.check_packages(lambda name: object()).status == pf.OK
 
 
-def test_chromium_failure_tells_you_how_to_install_it():
+def test_firefox_failure_tells_you_how_to_install_it():
     def boom():
         raise RuntimeError("Executable doesn't exist at C:\\x\nrun playwright install")
-    c = pf.check_chromium(boom)
-    assert c.status == pf.FAIL and "playwright install chromium" in c.detail and "\n" not in c.detail
-    assert pf.check_chromium(lambda: None).status == pf.OK
+    c = pf.check_firefox(boom)
+    assert c.status == pf.FAIL and "playwright install firefox" in c.detail and "\n" not in c.detail
+    assert pf.check_firefox(lambda: None).status == pf.OK
 
 
 def test_headless_mode_fails_because_nothing_can_be_recorded():

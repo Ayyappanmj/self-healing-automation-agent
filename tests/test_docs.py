@@ -35,7 +35,7 @@ def test_demo_gif_is_only_a_placeholder_until_it_exists():
 
 def test_windows_install_commands_present():
     for cmd in ("python -m venv .venv", r".venv\Scripts\activate", "pip install -r requirements.txt",
-                "playwright install chromium", "streamlit run app.py", "pytest"):
+                "playwright install firefox", "streamlit run app.py", "pytest"):
         assert cmd in README
 
 
@@ -213,7 +213,7 @@ def test_ci_workflow_is_valid_yaml_and_runs_the_suite_with_a_browser():
     job = wf["jobs"]["test"]
     assert job["strategy"]["matrix"]["python-version"] == ["3.11", "3.12"]
     commands = " ".join(step.get("run", "") for step in job["steps"])
-    assert "pip install -r requirements.txt" in commands and "playwright install --with-deps chromium" in commands
+    assert "pip install -r requirements.txt" in commands and "playwright install --with-deps firefox" in commands
     assert "pytest" in commands
 
 
@@ -223,7 +223,7 @@ def test_readme_does_not_show_a_ci_badge_before_ci_has_run():
 
 def test_dockerfile_installs_the_browser_and_runs_headless():
     docker = (ROOT / "Dockerfile").read_text(encoding="utf-8")
-    assert "playwright install --with-deps chromium" in docker and "HEADLESS=true" in docker
+    assert "playwright install --with-deps firefox" in docker and "HEADLESS=true" in docker
     assert "--server.address=0.0.0.0" in docker and "EXPOSE 8501" in docker
     ignore = (ROOT / ".dockerignore").read_text(encoding="utf-8")
     assert ".env" in ignore.splitlines() and "data/" in ignore.splitlines()

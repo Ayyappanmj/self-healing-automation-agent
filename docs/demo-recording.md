@@ -24,7 +24,7 @@ python -m scripts.demo_preflight          # checks browser, visible window, LLM 
 python -m scripts.demo_preflight --reset  # optional: wipes stored runs, demo logs and failure screenshots (asks first)
 ```
 
-The pre-flight check fails if Chromium is missing or `HEADLESS=true` (no window to record), and warns if old runs would
+The pre-flight check fails if Firefox is missing or `HEADLESS=true` (no window to record), and warns if old runs would
 make the dashboard start non-empty, if Ollama is configured but unreachable, or if the threshold is not the default.
 Starting from an empty dashboard is good: the metrics you show are then exactly the ones this recording produced.
 
@@ -33,7 +33,7 @@ and set `LLM_PROVIDER=ollama` in `.env`. Check the **Settings** tab afterwards, 
 
 **Screen layout (do this once):**
 - Use a 1920x1080 display if you can; close other windows and notifications (Windows: turn on Do Not Disturb).
-- Browser zoom 100%. Snap the Streamlit tab to the left half (`Win` + `Left`). The Playwright Chromium window opens
+- Browser zoom 100%. Snap the Streamlit tab to the left half (`Win` + `Left`). The Playwright Firefox window opens
   separately when the run starts: snap it to the right half (`Win` + `Right`).
 - Set **Slow motion** to 400 ms on the Run Automation tab so viewers can follow each action.
 - Do one unrecorded dry run and time it: the full demo duration depends on your machine, so measure it rather than guess.
@@ -109,7 +109,7 @@ link; or upload it as an unlisted video and link it.
 
 **Caption template** (fill in the blanks truthfully):
 
-> Recorded locally on [date], Windows, Chromium, [no LLM / Ollama llama3.2]. A login test passes on UI v1, then the same
+> Recorded locally on [date], Windows, Firefox, [no LLM / Ollama llama3.2]. A login test passes on UI v1, then the same
 > old locators are run against changed UIs. The agent heals what it is confident about and refuses the rest.
 > [Waiting sections sped up.] Full video: [link].
 

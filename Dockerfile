@@ -8,7 +8,7 @@ ENV PYTHONUNBUFFERED=1 HEADLESS=true
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt \
- && playwright install --with-deps chromium
+ && playwright install --with-deps firefox
 
 COPY . .
 EXPOSE 8501

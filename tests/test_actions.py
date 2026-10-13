@@ -1,4 +1,4 @@
-"""Locator executor tests. Fake-page tests need no browser; browser tests skip if Chromium is missing."""
+"""Locator executor tests. Fake-page tests need no browser; browser tests skip if Firefox is missing."""
 import pytest
 
 from browser.actions import Action, execute_action, run_steps

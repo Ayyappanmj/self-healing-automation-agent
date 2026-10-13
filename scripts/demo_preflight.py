@@ -47,19 +47,19 @@ def check_packages(find_spec: Callable = importlib.util.find_spec) -> Check:
     return Check("Packages", OK, "all required packages import")
 
 
-def _launch_chromium() -> None:
+def _launch_firefox() -> None:
     from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
-        p.chromium.launch(headless=True).close()
+        p.firefox.launch(headless=True).close()
 
 
-def check_chromium(launch: Callable[[], None] = _launch_chromium) -> Check:
+def check_firefox(launch: Callable[[], None] = _launch_firefox) -> Check:
     try:
         launch()
     except Exception as exc:
         first = (str(exc).strip().splitlines() or [type(exc).__name__])[0][:120]
-        return Check("Chromium", FAIL, f"could not start ({first}). Run: playwright install chromium")
-    return Check("Chromium", OK, "starts")
+        return Check("Firefox", FAIL, f"could not start ({first}). Run: playwright install firefox")
+    return Check("Firefox", OK, "starts")
 
 
 def check_window_visible(settings: Settings) -> Check:
@@ -143,7 +143,7 @@ def reset_files(settings: Settings, confirm: bool) -> list[str]:
 
 
 def run_checks(settings: Settings) -> list[Check]:
-    return [check_python(), check_packages(), check_chromium(), check_window_visible(settings), check_threshold(settings),
+    return [check_python(), check_packages(), check_firefox(), check_window_visible(settings), check_threshold(settings),
             check_llm(settings), check_storage(settings), check_port()]
 
 

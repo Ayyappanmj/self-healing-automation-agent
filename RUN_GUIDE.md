@@ -4,7 +4,7 @@ Status: all 15 phases complete. The README.md has the project overview; this gui
 
 ## 1. Requirements
 - Windows 10/11, Python 3.11+ (`python --version`), Git (optional)
-- Internet for the one-time install of packages and Chromium
+- Internet for the one-time install of packages and Firefox
 
 ## 2. Setup (once)
 ```powershell
@@ -12,7 +12,7 @@ cd self-healing-automation-agent
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
-playwright install chromium
+playwright install firefox
 copy .env.example .env
 ```
 If activation is blocked: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`, then reopen PowerShell.
@@ -20,18 +20,18 @@ If activation is blocked: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`,
 ## 3. Run the tests
 ```powershell
 pytest -v                                  # everything
-pytest -m "not browser"                    # fast, no Chromium needed
+pytest -m "not browser"                    # fast, no Firefox needed
 pytest --cov --cov-report=term-missing --cov-report=html   # measure coverage (open htmlcov\index.html)
 python -m scripts.mutation_check           # break the code on purpose; tests must notice
 ```
 See `docs/testing.md` for what is tested where.
-Tests marked "real browser" launch headless Chromium. If Chromium isn't installed they are skipped, not failed.
+Tests marked "real browser" launch headless Firefox. If Firefox isn't installed they are skipped, not failed.
 
 ## 4. Try each phase
 | Phase | Command | What you see |
 |---|---|---|
 | 2 Demo site | `python -m demo_site.app` then open http://127.0.0.1:8000 | Login page in 4 UI versions (/v1 to /v4) |
-| 3 Automation | `python -m scripts.phase3_demo` | Chromium opens; v1 steps PASS on v1, FAIL on v2 |
+| 3 Automation | `python -m scripts.phase3_demo` | Firefox opens; v1 steps PASS on v1, FAIL on v2 |
 | 4 Failure detection | `python -m scripts.phase4_demo` | Each failure classified (not found, hidden, ambiguous, invalid); screenshots saved to `screenshots/` |
 | 5 DOM inspection | `python -m scripts.phase5_demo` | After the v1 locator fails on v2/v3/v4, prints the page's elements (id, testid, role, text, label, path, visibility); saves `data/snapshot_v*.json` |
 | 6 Candidate locators | `python -m scripts.phase6_demo` | For v2/v3/v4, lists the candidate locators generated for buttons and how many elements each really matches in the browser |
@@ -64,11 +64,11 @@ Edit `.env` (copy of `.env.example`). Useful now:
 | Problem | Fix |
 |---|---|
 | `ModuleNotFoundError: agent` | Run from the project root, use `python -m scripts.<name>` |
-| `Executable doesn't exist` | Run `playwright install chromium` |
+| `Executable doesn't exist` | Run `playwright install firefox` |
 | Port 8000 in use | Close the other server, or change the port in `demo_site/app.py` |
 | Activation blocked | See the ExecutionPolicy command above |
-| Pytest skips browser tests | Chromium missing, or the venv isn't active |
-| Run Demo shows "Executable doesn't exist" | `playwright install chromium` |
+| Pytest skips browser tests | Firefox missing, or the venv isn't active |
+| Run Demo shows "Executable doesn't exist" | `playwright install firefox` |
 | Run Demo does nothing / error box | Open the "Runner console output" expander; try `python -m agent.runner` in PowerShell to see the raw error |
 | Dashboard shows zeros | No run is stored yet, or `DB_PATH` in `.env` changed. Settings > Stored data shows the database path and row counts |
 | "Could not save to storage" in the run log | The run still completes. Check that `data/` is writable and no other program has `healing.db` locked |

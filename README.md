@@ -84,7 +84,7 @@ More detail and design decisions: [docs/architecture.md](docs/architecture.md).
 | Area | Choice |
 |---|---|
 | Language | Python 3.11+ |
-| Browser automation | Playwright (Chromium) |
+| Browser automation | Playwright (Firefox) |
 | UI | Streamlit |
 | Storage | SQLite (standard library) plus JSON Lines logs |
 | AI (optional) | Ollama local models or Google Gemini through a small provider abstraction |
@@ -136,7 +136,7 @@ cd self-healing-automation-agent
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
-playwright install chromium
+playwright install firefox
 copy .env.example .env
 ```
 
@@ -157,8 +157,8 @@ python -m agent.runner --versions v2,v3
 ## Run tests
 
 ```powershell
-pytest                                   # everything (browser tests skip if Chromium is missing)
-pytest -m "not browser"                  # fast, no Chromium needed
+pytest                                   # everything (browser tests skip if Firefox is missing)
+pytest -m "not browser"                  # fast, no Firefox needed
 pytest --cov --cov-report=term-missing   # measure coverage on your machine
 ```
 
@@ -240,7 +240,7 @@ The app is meant to run locally, where you can watch the browser. Hosted platfor
 - **Actions supported:** click, fill, get text, assert visible. No hover, drag, file upload, or multi-tab flows yet.
 - **Dynamic text is avoided by heuristic.** Locators are not built from text that contains values the test typed, numbers, emails or prices, but this rule can miss other kinds of changing text.
 - **Repairs are recorded, not written back.** Healed locators are stored and can be reused at run time, but your test source files are not edited automatically.
-- **Chromium only**, run locally. Hosted Streamlit environments generally cannot launch browsers; see Deployment above for showcase mode, CI and Docker.
+- **Firefox only**, run locally. Hosted Streamlit environments generally cannot launch browsers; see Deployment above for showcase mode, CI and Docker.
 - **Local SQLite, no authentication.** Intended for a single user on one machine.
 - **Optional LLM quality depends on the model.** The deterministic path is the reference behaviour; the LLM can lift borderline cases but cannot override the safety rules.
 

@@ -11,7 +11,7 @@ python -m scripts.resume_bullets             # bullets from the newest result in
 ```
 
 Results are saved as `benchmarks\results\benchmark_<timestamp>.json` and `.md`, together with the environment (Python,
-Chromium, Playwright, OS), the settings used and the number of cases.
+Firefox, Playwright, OS), the settings used and the number of cases.
 
 ## What is measured
 

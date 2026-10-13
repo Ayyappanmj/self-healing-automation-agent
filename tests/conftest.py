@@ -5,7 +5,7 @@ from demo_site.app import start_server
 
 @pytest.fixture(scope="session")
 def browser_manager():
-    """ONE headless Chromium for the whole test session (Playwright's sync API allows only one per thread)."""
+    """ONE headless Firefox for the whole test session (Playwright's sync API allows only one per thread)."""
     from browser.manager import BrowserManager
 
     manager = BrowserManager(headless=True)
@@ -13,7 +13,7 @@ def browser_manager():
         manager.start()
     except Exception as exc:
         manager.stop()
-        pytest.skip(f"Chromium unavailable: {exc}")
+        pytest.skip(f"Firefox unavailable: {exc}")
     yield manager
     manager.stop()
 
@@ -27,12 +27,12 @@ def demo_base_url():
 
 @pytest.fixture(scope="session")
 def browser_page(browser_manager, demo_base_url):
-    """(page, demo-site base URL). Skips if Chromium isn't installed."""
+    """(page, demo-site base URL). Skips if Firefox isn't installed."""
     return browser_manager.page, demo_base_url
 
 
 def pytest_collection_modifyitems(items):
-    """Tag every test that needs a real browser so `pytest -m "not browser"` runs without Chromium."""
+    """Tag every test that needs a real browser so `pytest -m "not browser"` runs without Firefox."""
     for item in items:
         if {"browser_page", "browser_manager", "live"} & set(getattr(item, "fixturenames", [])):
             item.add_marker(pytest.mark.browser)

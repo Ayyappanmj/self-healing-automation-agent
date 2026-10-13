@@ -1,8 +1,8 @@
 # Testing
 
 ```powershell
-pytest                                   # everything (browser tests skip themselves if Chromium is missing)
-pytest -m "not browser"                  # fast: no Chromium needed
+pytest                                   # everything (browser tests skip themselves if Firefox is missing)
+pytest -m "not browser"                  # fast: no Firefox needed
 pytest -m browser                        # only the real-browser tests
 pytest --cov --cov-report=term-missing --cov-report=html   # measure coverage; open htmlcov\index.html
 python -m scripts.mutation_check         # break the code on purpose; the tests must notice
@@ -33,7 +33,7 @@ The UI page modules (`ui/dashboard.py`, ...) are exercised by `tests/test_ui_smo
 - `tests/fakes.py` builds a browser-free page from the real demo HTML. It only resolves the locator strings the generator
   can produce, so a broken locator really matches nothing. This lets the healing engine, controller and runner be tested
   end to end in milliseconds.
-- Tests marked `browser` (automatic, see `tests/conftest.py`) run the same flows in a real Chromium. They are the final check
+- Tests marked `browser` (automatic, see `tests/conftest.py`) run the same flows in a real Firefox. They are the final check
   that the generated locator syntax (`role=`, `:has-text`, xpath) is accepted by Playwright.
 - The LLM is never mocked in the demo; tests use a scripted fake provider and an injected fake HTTP layer. An optional live
   test runs only with `RUN_LIVE_LLM_TEST=1` and a configured provider.

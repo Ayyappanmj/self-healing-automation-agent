@@ -8,7 +8,7 @@ verified and what is not.
 
 1. **You cannot watch the browser.** The browser window opens on the server, not on the viewer's screen. Hosted runs must be headless.
 2. **Resources are small and shared.** Streamlit's forum FAQ listed limits of roughly up to 2 CPU cores and about 2.7 GB of
-   memory as of February 2024, and says they may change at any time. A Chromium instance plus the app can hit that.
+   memory as of February 2024, and says they may change at any time. A Firefox instance plus the app can hit that.
 3. **Playwright needs a browser binary and system libraries.** Community Cloud installs Python packages from
    `requirements.txt` and Linux packages from `packages.txt`, but there is no `playwright install` step, and forum users have
    reported difficulty deploying Playwright there. Treat it as unproven for this project.
@@ -22,7 +22,7 @@ I have not deployed this project to Streamlit Community Cloud. The statements ab
 |---|---|---|
 | Let someone see it working in 30 seconds | A recorded demo GIF/video in the README (`demo-recording.md`) | You record it |
 | Let someone click through the real dashboard without installing anything | **Showcase mode** on Streamlit Community Cloud: a read-only copy that displays a **real run exported from your machine** | Implemented and unit-tested; the hosted deployment is untested |
-| Prove it works on a clean machine | **GitHub Actions** runs the full suite, including real Chromium, on every push | Workflow provided; first run is yours to check |
+| Prove it works on a clean machine | **GitHub Actions** runs the full suite, including real Firefox, on every push | Workflow provided; first run is yours to check |
 | Run the full app on a server | **Docker image** (headless) on any host that runs containers | Dockerfile provided; I have not built it |
 | Recruiter wants to run it | `git clone`, then the Windows commands in the README | Works locally |
 
@@ -50,7 +50,7 @@ reasoning prompt panels work on stored data only; anything that needs a browser 
 
 ## GitHub Actions
 
-`.github/workflows/tests.yml` installs the dependencies, runs `playwright install --with-deps chromium`, and runs
+`.github/workflows/tests.yml` installs the dependencies, runs `playwright install --with-deps firefox`, and runs
 `pytest --cov` on Python 3.11 and 3.12. It is the evidence, visible to anyone, that the suite passes on a clean machine.
 See `github-setup.md` for adding the badge after the first green run.
 
@@ -63,5 +63,5 @@ docker run --rm -p 8501:8501 -v shdata:/app/data self-healing-agent
 
 Then open http://localhost:8501. The browser runs inside the container (`HEADLESS=true`), so Run Demo works but you see the
 live log and screenshots, not a window. The `shdata` volume keeps the SQLite history between runs. For a hosted version, any
-platform that runs containers can use this image; check its current free-tier memory limits first, since Chromium needs
+platform that runs containers can use this image; check its current free-tier memory limits first, since Firefox needs
 substantial memory, and I cannot promise any particular free tier works.

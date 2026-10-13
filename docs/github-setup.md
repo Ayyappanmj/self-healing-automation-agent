@@ -5,7 +5,7 @@
 ```powershell
 python -m scripts.prepush_check      # secrets, placeholders, large files, files that must not be committed
 pytest -m "not browser"              # fast check
-pytest                               # full check (needs Chromium)
+pytest                               # full check (needs Firefox)
 ```
 
 `prepush_check` will flag two placeholders you must fill in yourself:
@@ -95,7 +95,7 @@ git push origin v0.1.0
 
 ## 5. After the first push
 
-1. Open the **Actions** tab and check that the `tests` workflow is green (it installs Chromium and runs the full suite,
+1. Open the **Actions** tab and check that the `tests` workflow is green (it installs Firefox and runs the full suite,
    including the Streamlit smoke test). Fix anything red before sharing the link.
 2. Once it is green, add the badge to the top of `README.md` (replace `<your-username>`):
    ```markdown

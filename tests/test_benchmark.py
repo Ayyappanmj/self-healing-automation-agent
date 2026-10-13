@@ -84,7 +84,7 @@ def test_modes_are_kept_apart():
 
 
 def result_for(trials, flows=None, **meta):
-    m = {"date_utc": "2026-10-04T00:00:00+00:00", "python": "3.12", "platform": "test", "chromium": "1", "playwright": "1",
+    m = {"date_utc": "2026-10-04T00:00:00+00:00", "python": "3.12", "platform": "test", "firefox": "1", "playwright": "1",
          "reps": 1, "versions": ["v2", "v3", "v4"], "llm": "none", "confidence_threshold": 0.75, "action_timeout_ms": 1000,
          "positive_cases": 17, "negative_cases": 4, **meta}
     return {"meta": m, "trials": trials, "flows": flows or [], "summary": bm.summarize(trials, flows or [], m)}
@@ -182,7 +182,7 @@ def test_tiny_real_benchmark_run_produces_a_consistent_result(tmp_path):
     out = subprocess.run([sys.executable, "-m", "scripts.benchmark", "--quick", "--versions", "v2", "--timeout-ms", "600",
                           "--out", str(tmp_path)], capture_output=True, text=True, cwd=root, timeout=600)
     if "Executable doesn't exist" in out.stderr + out.stdout:
-        pytest.skip("Chromium is not installed")
+        pytest.skip("Firefox is not installed")
     assert out.returncode == 0, out.stderr[-500:]
     (path,) = tmp_path.glob("benchmark_*.json")
     result = json.loads(path.read_text(encoding="utf-8"))

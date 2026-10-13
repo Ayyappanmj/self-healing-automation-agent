@@ -34,7 +34,7 @@ def render_last_run() -> None:
         if last["error"]:
             st.error(last["error"])
             if "Executable doesn't exist" in last["error"] or "playwright install" in last["error"]:
-                st.code("playwright install chromium", language="powershell")
+                st.code("playwright install firefox", language="powershell")
         if last["console"]:
             with st.expander("Runner console output"):
                 st.code("\n".join(last["console"]))
